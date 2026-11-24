@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UniMatch · Conecta y estudia en la UNI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar-web">
+    <div class="topbar-inner">
+      <div class="brand-web">
+        <span class="brand-dot"></span>
+        <span>UniMatch</span>
+      </div>
+      <div class="topbar-links">
+        <span id="indicador-cuenta-top" class="pill-dato">Sin sesión</span>
+        <button type="button" id="btn-cerrar-sesion" class="btn-topbar-ghost" hidden>Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="escenario-movil">
+    <div class="marco-celular">
+      <!-- Barra de navegación (barra inferior en celular / sidebar en PC) -->
+      <nav id="barra-nav-principal" class="barra-inferior" hidden>
+        <button type="button" class="nav-item activa" data-vista="vista-perfil">
+          <span class="icono-nav">👤</span>
+          <span class="texto-nav">Perfil</span>
+        </button>
+        <button type="button" class="nav-item" data-vista="vista-matches">
+          <span class="icono-nav">🔥</span>
+          <span class="texto-nav">Matches</span>
+        </button>
+        <button type="button" class="nav-item" data-vista="vista-chats">
+          <span class="icono-nav">💬</span>
+          <span class="texto-nav">Chats</span>
+        </button>
+        <button type="button" class="nav-item" data-vista="vista-horarios">
+          <span class="icono-nav">📅</span>
+          <span class="texto-nav">Horarios</span>
+        </button>
+        <button type="button" class="nav-item" data-vista="vista-sesiones">
+          <span class="icono-nav">📚</span>
+          <span class="texto-nav">Sesiones</span>
+        </button>
+      </nav>
+
+      <!-- VISTA 1: ACCESO (LOGIN Y REGISTRO) -->
+      <section id="vista-acceso" class="vista activa">
+        <div class="cabecera-seccion">
+          <h2 id="titulo-acceso">Iniciar Sesión</h2>
+        </div>
+
+        <div class="tabs-categorias tabs-acceso">
+          <button type="button" id="tab-modo-login" class="tab-cat activa" data-modo="login">Iniciar Sesión</button>
+          <button type="button" id="tab-modo-registro" class="tab-cat" data-modo="registro">Crear cuenta</button>
+        </div>
+
+        <div id="panel-iniciar-sesion" class="bloque-app">
+          <form id="form-iniciar-sesion" class="form-app">
+            <label>
+              Correo institucional o número de celular
+              <input type="text" id="login-contacto" placeholder="ejemplo@uni.pe o 999888777" required />
+            </label>
+            <label>
+              Contraseña
+              <input type="password" id="login-password" placeholder="••••••••" required />
+            </label>
+            <div id="error-form-login" class="alerta-error" hidden></div>
+            <button type="submit" class="btn-naranja">Entrar a UniMatch</button>
+          </form>
+
+          <div id="bloque-cuentas-existentes" class="bloque-cuentas-inner" hidden>
+            <h3>Compañeros activos en la red</h3>
+            <div id="lista-cuentas-existentes" class="chips-wrap"></div>
+          </div>
+        </div>
+
+        <div id="panel-crear-cuenta" class="bloque-app" hidden>
+          <form id="form-crear-cuenta" class="form-app">
+            <label>
+              Nombre completo
+              <input type="text" id="reg-nombre" placeholder="Ej. Camila Rojas" required />
+            </label>
+
+            <div class="fila-2">
+              <label>
+                Facultad / Procedencia
+                <input type="text" id="reg-procedencia" placeholder="Ej. FIIS - UNI" required />
+              </label>
+              <label>
+                Ciclo actual
+                <select id="reg-ciclo">
+                  <option value="1er ciclo">1er ciclo</option>
+                  <option value="2do ciclo">2do ciclo</option>
+                  <option value="3er ciclo">3er ciclo</option>
+                  <option value="4to ciclo">4to ciclo</option>
+                  <option value="5to ciclo">5to ciclo</option>
+                  <option value="6to ciclo">6to ciclo</option>
+                  <option value="7mo ciclo">7mo ciclo</option>
+                  <option value="8vo ciclo">8vo ciclo</option>
+                  <option value="9no ciclo">9no ciclo</option>
+                  <option value="10mo ciclo">10mo ciclo</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Carrera profesional
+              <input type="text" id="reg-carrera" placeholder="Ej. Ingeniería de Sistemas" required />
+            </label>
+
+            <div class="fila-2">
+              <label>
+                Categoría principal
+                <select id="reg-categoria">
+                  <option value="Estudio">Estudio</option>
+                  <option value="Actividades">Actividades</option>
+                  <option value="Networking">Networking</option>
+                </select>
+              </label>
+
+              <label>
+                Género
+                <select id="reg-genero">
+                  <option value="No especificado">Prefiero no decirlo</option>
+                  <option value="Femenino">Femenino</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="No binario">No binario</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="fila-2">
+              <label>
+                Correo o WhatsApp
+                <input type="text" id="reg-contacto" placeholder="tu.correo@uni.pe" required />
+              </label>
+              <label>
+                Contraseña
+                <input type="password" id="reg-password" placeholder="Mínimo 4 caracteres" required />
+              </label>
+            </div>
+
+            <label>
+              Bio / Descripción breve
+              <input type="text" id="reg-bio" placeholder="Ej. Busco grupo para repasar Cálculo y C++" />
+            </label>
+
+            <div class="selector-apariencia">
+              <span class="label-grupo">Elige tu avatar</span>
+              <div id="reg-rejilla-avatares" class="rejilla-avatares"></div>
+              <span class="label-grupo">Elige tu banner</span>
+              <div id="reg-rejilla-banners" class="rejilla-banners"></div>
+            </div>
+
+            <div id="error-form-registro" class="alerta-error" hidden></div>
+            <button type="submit" class="btn-naranja">Crear mi cuenta</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- VISTA 2: PERFIL -->
+      <section id="vista-perfil" class="vista" hidden>
+        <div class="cabecera-seccion">
+          <h2>Mi Perfil</h2>
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+            <button type="button" id="btn-editar-apariencia" class="btn-mini">Apariencia</button>
+            <button type="button" id="btn-editar-perfil-rapido" class="btn-mini">Editar cursos</button>
+          </div>
+        </div>
+
+        <article id="tarjeta-perfil-actual" class="card-perfil"></article>
+
+        <section id="panel-apariencia" class="panel-editor" hidden>
+          <div class="bloque-titulo-fila">
+            <h3>Mi apariencia</h3>
+            <button type="button" id="btn-cerrar-apariencia" class="btn-gris">Cerrar</button>
+          </div>
+          <p class="ayuda-mini">Toca un avatar y un banner. Mira la vista previa y guarda cuando te guste.</p>
+          <div id="apariencia-previa" class="vista-previa-apariencia"></div>
+          <div class="selector-apariencia">
+            <span class="label-grupo">Avatar</span>
+            <div id="ap-rejilla-avatares" class="rejilla-avatares"></div>
+            <span class="label-grupo">Banner</span>
+            <div id="ap-rejilla-banners" class="rejilla-banners"></div>
+          </div>
+          <div class="fila-botones">
+            <button type="button" id="btn-guardar-apariencia" class="btn-naranja">Guardar apariencia</button>
+          </div>
+        </section>
+
+        <section class="bloque-app">
+          <div class="bloque-titulo-fila">
+            <h3>Mis cursos (domino / necesito)</h3>
+            <span id="badge-cursos-count" class="badge-suave">0 cursos</span>
+          </div>
+          <div id="chips-perfil-cursos" class="chips-wrap"></div>
+        </section>
+
+        <section id="panel-editor-perfil" class="panel-editor" hidden>
+          <div class="bloque-titulo-fila">
+            <h3>Editar mis cursos (domino / necesito)</h3>
+            <button type="button" id="btn-cancelar-edicion" class="btn-gris">Cerrar</button>
+          </div>
+          <p class="ayuda-mini">Marca los cursos que dominas para ayudar a otros y los que necesitas reforzar.</p>
+          <form id="form-perfil-completo" class="form-app">
+            <div class="grupo-checks">
+              <span class="label-grupo">Cursos que domino</span>
+              <div id="checks-domina" class="checks-grid"></div>
+            </div>
+            <div class="grupo-checks">
+              <span class="label-grupo">Cursos que necesito</span>
+              <div id="checks-necesita" class="checks-grid"></div>
+            </div>
+            <div id="error-form-perfil" class="alerta-error" hidden></div>
+            <div class="fila-botones">
+              <button type="submit" class="btn-naranja">Guardar cursos</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="bloque-app">
+          <div class="bloque-titulo-fila">
+            <h3>Disponibilidad semanal</h3>
+            <span id="texto-franjas-abiertas" class="badge-naranja">0 de 15 franjas abiertas</span>
+          </div>
+          <p class="ayuda-mini">Toca los bloques en los que estás libre de lunes a viernes para cruzar horarios.</p>
+          <div id="grilla-disponibilidad-perfil" class="grilla-15"></div>
+        </section>
+      </section>
+
+      <!-- VISTA 3: MATCHES -->
+      <section id="vista-matches" class="vista" hidden>
+        <div class="brand-header-app">
+          <span class="logo-marca">Descubrir</span>
+          <span id="contador-candidatos" class="contador-pill">0 candidatos</span>
+        </div>
+
+        <div class="tabs-categorias">
+          <button type="button" class="tab-cat activa" data-categoria="Estudio">Estudio</button>
+          <button type="button" class="tab-cat" data-categoria="Actividades">Actividades</button>
+          <button type="button" class="tab-cat" data-categoria="Networking">Networking</button>
+        </div>
+
+        <div id="contenedor-candidato-match" class="zona-candidato"></div>
+      </section>
+
+      <!-- VISTA 4: CHATS -->
+      <section id="vista-chats" class="vista" hidden>
+        <div id="header-chat-activo" class="chat-top"></div>
+
+        <div class="selector-conversaciones">
+          <span class="label-mini">Matches:</span>
+          <div id="lista-contactos-chat" class="pills-scroll"></div>
+        </div>
+
+        <div id="mensajes-chat" class="mensajes-box"></div>
+
+        <div style="display:flex;justify-content:flex-end;">
+          <button type="button" id="btn-toggle-plan" class="btn-plan-toggle">+ Proponer plan de estudio</button>
+        </div>
+
+        <form id="form-plan" class="form-plan" hidden>
+          <input type="text" id="input-plan-lugar" placeholder="Lugar (ej. Biblioteca Central)" required />
+          <input type="text" id="input-plan-hora" placeholder="Día y hora (ej. Jueves 4 PM)" required />
+          <button type="submit" class="btn-naranja-sm">Enviar plan</button>
+        </form>
+
+        <form id="form-mensaje" class="form-mensaje">
+          <input type="text" id="input-mensaje" placeholder="Escribe un mensaje..." autocomplete="off" required />
+          <button type="submit" class="btn-enviar-msg" aria-label="Enviar">➤</button>
+        </form>
+      </section>
+
+      <!-- VISTA 5: HORARIOS -->
+      <section id="vista-horarios" class="vista" hidden>
+        <div class="cabecera-seccion">
+          <h2>Cruce de Horarios</h2>
+        </div>
+
+        <div class="selector-conversaciones">
+          <span class="label-mini">Comparar con:</span>
+          <div id="tabs-comparar-con" class="pills-scroll"></div>
+        </div>
+
+        <div id="matriz-comparacion" class="matriz-wrap"></div>
+        <div id="resumen-cruce-horario" class="resumen-cruce"></div>
+      </section>
+
+      <!-- VISTA 6: SESIONES -->
+      <section id="vista-sesiones" class="vista" hidden>
+        <div class="cabecera-seccion">
+          <h2>Sesiones Grupales</h2>
+          <button type="button" id="btn-toggle-nueva-sesion" class="btn-mini">+ Nueva sesión</button>
+        </div>
+
+        <form id="form-nueva-sesion" class="panel-editor form-app" hidden>
+          <label>
+            Título de la sesión
+            <input type="text" id="input-sesion-titulo" placeholder="Ej. Repaso Parcial de Cálculo" required />
+          </label>
+          <div class="fila-2">
+            <label>
+              Curso
+              <select id="select-sesion-curso"></select>
+            </label>
+            <label>
+              Categoría
+              <select id="select-sesion-cat">
+                <option value="Estudio">Estudio</option>
+                <option value="Actividades">Actividades</option>
+                <option value="Networking">Networking</option>
+              </select>
+            </label>
+          </div>
+          <div class="fila-2">
+            <label>
+              Fecha y hora
+              <input type="text" id="input-sesion-fecha" placeholder="Viernes 3:00 PM" required />
+            </label>
+            <label>
+              Lugar o enlace
+              <input type="text" id="input-sesion-lugar" placeholder="Sala de lectura FIIS" required />
+            </label>
+          </div>
+          <button type="submit" class="btn-naranja">Publicar sesión</button>
+        </form>
+
+        <div id="lista-sesiones" class="lista-sesiones"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./avatars.js"></script>
+  <script src="./database.js"></script>
+  <script src="./algoritmo.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+
